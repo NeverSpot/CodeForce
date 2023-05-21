@@ -39,45 +39,53 @@ typedef vector<pair<int, int>> vp;
 typedef unordered_map<int,int> um;
 //char al[26]={'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
 
-signed main() {
-    Code By NeverSpot
-    test(t) {
-        int n,m;
-        ci n>>m;
-        vector<int> edges[10000];
-        unordered_map<int,int> count;
-        fl(1,m+1){
-            int x,y;
-            cin >>x>>y;
-            count[x]++;
-            count[y]++;
-            edges[x].push_back(y);
-            edges[y].push_back(x);
-        }
-        map<int,int> reverse_count;
-        for(auto child:count){
-            reverse_count[child.s]++;
-//            co child.f sp child.s ed
-        }
-        vi sex;
-        int x,y;
-        for(auto child:reverse_count){
-            co child.s ed
-            sex.pb(child.s );
-        }
-        sortv(sex);
-        if (sex.size() == 3) {
-            cout << sex[1] << ' ' << sex[2] / sex[1] << '\n';
-        }
-        else {
-            cout << sex[0] - 1 << ' ' << sex[1] / (sex[0] - 1) << '\n';
-        }
+vi cats;
+vi edges[1000000];
+int n,m;
+int sex=0;
 
+void dfs(int v,int tor,int p){
+    if(cats[v]==1){
+        tor++;
     }
-    return 0;
+    if(tor>m){
+        return;
+    }
+    if(cats[v]==0){
+        tor=0;
+    }
+    if(v!=1&&edges[v].size()==1){
+        sex++;
+    }
+    for(auto child:edges[v]){
+        if(child!=p){
+            dfs(child,tor,v);
+        }
+    }
 }
 
-
+signed main() {
+    Code By NeverSpot
+    ci n>>m;
+    cats.pb(0);
+    fl(0,n){
+        int x;
+        ci x;
+        cats.pb(x);
+    }
+    fl(1,n){
+        int x,y;
+        ci x>>y;
+        edges[x].pb(y);
+        edges[y].pb(x);
+    }
+    dfs(1,0,-1);
+    co sex ed
+//    test(t) {
+//
+//    }
+    return 0;
+}
 
 
 
